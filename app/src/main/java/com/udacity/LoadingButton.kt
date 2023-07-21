@@ -98,6 +98,7 @@ class LoadingButton @JvmOverloads constructor(
 
         drawButton(canvas)
         drawProgress(canvas)
+        valueAnimator.repeatCount=ValueAnimator.INFINITE
     }
 
     private fun drawButton(canvas: Canvas?) {
@@ -136,5 +137,6 @@ class LoadingButton @JvmOverloads constructor(
         heightSize = h
         setMeasuredDimension(w, h)
     }
+
 
 }

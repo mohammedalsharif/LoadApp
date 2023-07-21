@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LoadingButton">
-<!--   TODO: create custom attributes for the view-->
+        <attr name="loading_text" format="reference|string"/>
+        <attr name="loading_background" format="reference"/>
     </declare-styleable>
 </resources>
