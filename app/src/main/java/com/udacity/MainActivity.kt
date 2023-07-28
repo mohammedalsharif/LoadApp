@@ -16,13 +16,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import com.udacity.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityMainBinding
     private var downloadID: Long = 0
-
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
@@ -31,12 +29,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        custom_button.setOnClickListener {
+        binding.contentMain.customButton.setOnClickListener {
             download()
         }
 
@@ -63,12 +62,12 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.notification_description)
                 )
             }
-            custom_button.buttonState = ButtonState.Completed
+            binding.contentMain.customButton.buttonState = ButtonState.Completed
         }
     }
 
     private fun download() {
-        when (radioGroup.checkedRadioButtonId) {
+        when (binding.radioGroup.checkedRadioButtonId) {
             R.id.glide_button -> {
                 url = GLIDE_URL
                 fileName = getString(R.string.glide)
@@ -92,9 +91,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startDownload() {
-        custom_button.buttonState = ButtonState.Loading
-        val request =
-            DownloadManager.Request(Uri.parse(url))
+        binding.contentMain.customButton.buttonState = ButtonState.Loading
+        val request = DownloadManager.Request(Uri.parse(url))
                 .setTitle(getString(R.string.app_name))
                 .setDescription(getString(R.string.app_description))
                 .setRequiresCharging(false)

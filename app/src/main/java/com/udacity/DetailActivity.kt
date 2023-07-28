@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.content_detail.view.*
+import com.udacity.databinding.ActivityDetailBinding
+
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var notificationManager: NotificationManager
+    private lateinit var binding: ActivityDetailBinding
 
     companion object{
         const val DETAIL_STATUS = "status"
@@ -19,8 +20,9 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-        setSupportActionBar(toolbar)
+        binding=ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         notificationManager = ContextCompat.getSystemService(
             applicationContext,
@@ -28,16 +30,16 @@ class DetailActivity : AppCompatActivity() {
         ) as NotificationManager
         notificationManager.cancelAll()
 
-        content_detail.file_name.text = intent.getStringExtra(DETAIL_FILENAME)
-        content_detail.status.text = intent.getStringExtra(DETAIL_STATUS)
+        binding.contentDetail.fileName.text = intent.getStringExtra(DETAIL_FILENAME)
+        binding.contentDetail.status.text = intent.getStringExtra(DETAIL_STATUS)
 
-        if (content_detail.status.text == getString(R.string.success)) {
-            content_detail.status.setTextColor(resources.getColor(R.color.black))
+        if ( binding.contentDetail.status.text == getString(R.string.success)) {
+            binding.contentDetail.status.setTextColor(ContextCompat.getColor(this,R.color.black))
         } else {
-            content_detail.status.setTextColor(resources.getColor(R.color.red))
+            binding.contentDetail.status.setTextColor(ContextCompat.getColor(this,R.color.red))
         }
 
-        content_detail.detail_button.setOnClickListener{
+        binding.contentDetail.detailButton.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
         }
     }

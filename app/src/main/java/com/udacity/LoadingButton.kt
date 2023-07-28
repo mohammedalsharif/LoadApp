@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import kotlin.properties.Delegates
 
@@ -19,7 +20,7 @@ class LoadingButton @JvmOverloads constructor(
     private var heightSize = 0
     private var circleProgress = 0f
     private var buttonProgress = 0f
-    private lateinit var buttonText: String
+    private var buttonText: String
 
     private var valueAnimator = ValueAnimator()
 
@@ -54,11 +55,11 @@ class LoadingButton @JvmOverloads constructor(
     }
     private val paintCircle = Paint().apply {
         style = Paint.Style.FILL
-        color = resources.getColor(R.color.colorAccent)
+        color = ContextCompat.getColor(context,R.color.colorAccent)
         strokeWidth = 3f
     }
 
-    var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+    var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { _, _, new ->
         when (new) {
             ButtonState.Clicked -> {
             }

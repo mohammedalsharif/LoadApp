@@ -9,7 +9,6 @@ import androidx.core.app.NotificationCompat
 
 private val NOTIFICATION_ID = 0
 
-@SuppressLint("UnspecifiedImmutableFlag")
 fun NotificationManager.sendNotification(
     messageBody: String,
     fileName: String,
